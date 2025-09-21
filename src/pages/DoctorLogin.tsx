@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, AlertCircle } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 const DoctorLogin = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     doctorId: '',
     password: ''
@@ -20,11 +21,14 @@ const DoctorLogin = () => {
     
     if (validDoctors.includes(formData.doctorId.toUpperCase()) && formData.password) {
       setLoginStatus('success');
+      setTimeout(() => {
+        setLoginStatus('idle');
+        navigate('/doctor-dashboard');
+      }, 1500);
     } else if (formData.doctorId && formData.password) {
       setLoginStatus('invalid');
+      setTimeout(() => setLoginStatus('idle'), 3000);
     }
-
-    setTimeout(() => setLoginStatus('idle'), 3000);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

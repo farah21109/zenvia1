@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 const PatientLogin = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     userId: '',
     password: ''
@@ -17,7 +18,10 @@ const PatientLogin = () => {
     // Simple validation for demo
     if (formData.userId && formData.password) {
       setLoginSuccess(true);
-      setTimeout(() => setLoginSuccess(false), 3000);
+      setTimeout(() => {
+        setLoginSuccess(false);
+        navigate('/patient-dashboard');
+      }, 1500);
     }
   };
 
